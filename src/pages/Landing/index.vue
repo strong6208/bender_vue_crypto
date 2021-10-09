@@ -1,34 +1,34 @@
 <template>
-  <main class="w-full">
-    <div class="w-full bg-warm-gray-800">
+  <main class="w-full bg-fire-map-600">
+    <div class="w-full bg-transparent">
       <AtSiteHeader
-        title="Lumiere"
-        brand-class="font-brand"
+        title="CryptoBenders"
         :links="state.links"
-        link-class="text-white hover:text-amber-500"
+        link-class="text-white hover:text-fire-400"
         :actions="state.actions"
       />
     </div>
-    <div class="py-20 mb-10 text-center bg-orange-500 text-gray-50">
-        <h1 class="text-4xl font-brand"> Lumiere </h1>
+    <div class="py-20 text-center pb-30 bg-fire-map text-gray-50">
+        <h1 class="text-4xl"> Domain the elements and conquer </h1>
         <div>
             <p class="pt-5 text-xl">
-                A simple and powerful Vue 3 / Firebase 9 boilerplate based <span class="font-bold">Atmosphere UI</span>.
+                The future of digital racehorse ownership is here. Race your way to the top and build your legacy today.
             </p>
 
             <div class="mt-5 space-x-3">
-                <AtButton class="bg-white text-amber-500">Learn more</AtButton>
-                <AtButton class="font-bold bg-warm-gray-700 text-amber-500">See github</AtButton>
+                <AtButton class="px-10 font-bold text-white bg-fire">Start</AtButton>
             </div>
         </div>
     </div>
-    <div class="py-20 mx-auto mt-10 text-center space-y-28 max-w-7xl">
-        <div class="flex w-full" v-for="featureRow in state.features">
-            <div class="w-4/12" v-for="feature in featureRow">
-             <h4 class="font-bold"> {{ feature.emoji }} {{ feature.name }}</h4>
-             <p class="mt-5 text-left"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolore soluta quod vitae reprehenderit quis odio quo cum minima error asperiores consequuntur, repudiandae consectetur explicabo. Totam est molestiae ducimus doloribus.</p>
-            </div>
-        </div>
+    <div class="w-full bg-white">
+      <div class="py-20 mx-auto text-center bg-white space-y-28 max-w-7xl">
+          <div class="flex w-full" v-for="featureRow in state.features">
+              <div class="w-4/12" v-for="feature in featureRow">
+              <h4 class="font-bold"> {{ feature.emoji }} {{ feature.name }}</h4>
+              <p class="mt-5 text-left"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat dolore soluta quod vitae reprehenderit quis odio quo cum minima error asperiores consequuntur, repudiandae consectetur explicabo. Totam est molestiae ducimus doloribus.</p>
+              </div>
+          </div>
+      </div>
     </div>
     <div class="relative text-gray-100 bg-warm-gray-800">
         <AtPreFooter :sections="state.sections" class="bg-warm-gray-800" />
@@ -49,21 +49,17 @@ const state = {
   title: "Lumiere",
   links: [
     {
-      name: "Home",
+      name: "Fighting",
       url: "#home",
     },
     {
-      name: "About",
-      url: "#about",
+      name: "MarketPlace",
+      url: "/market-place",
     },
     {
-        name: "Features",
+        name: "Learn",
         url: "#features",
-    },
-    {
-      name: "Contact",
-      url: "#contact",
-    },
+    }
   ],
   sections: {
     general: {
@@ -101,14 +97,14 @@ const state = {
   },
   actions: [
     {
-      name: "Login",
+      name: "Want to play crypto benders?",
       url: "/login",
-      class: 'bg-white text-amber-500 hover:bg-gray-100 transition'
+      class: 'text-gray-300 bg-transparent hover:bg-transparent transition'
     },
     {
-      name: "Start for free",
+      name: "Start",
       url: "/register",
-      class: 'bg-amber-500 text-white hover:bg-amber-600 transition'
+      class: 'bg-fire px-10 py-2 text-white hover:bg-fire-400 transition'
     },
   ],
   footerLinks: [

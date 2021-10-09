@@ -1,17 +1,26 @@
 import Landing from "./pages/Landing/index.vue";
 import Login from "./pages/Auth/Login.vue";
 import Dashboard from "./pages/Dashboard.vue";
+import MarketPlace from "./pages/MarketPlace.vue";
 import Settings from "./pages/Settings/index.vue";
 import Notifications from "./pages/Notifications.vue";
 import { createRouter, createWebHistory } from "vue-router";
 import config from "./config";
-import { useAuth } from "lumiere-utils";
+import { useAuth } from "lumiere-utils/useAuth";
 
 export const routes = [
   {
     path: "/",
     component: Landing,
     name: "landing",
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/market-place",
+    component: MarketPlace,
+    name: "marketPlace",
     meta: {
       requiresAuth: false,
     },
@@ -84,7 +93,7 @@ myRouter.beforeEach(async (to, _from, next) => {
 export const avoidLoginRoutes = (route, isAuthenticated) => {
   if (isAuthenticated && route.matched.some(record => config.loginRoutes.includes(record.path))) {
     myRouter.push({ name: "dashboard" });
-  } else if (!isAuthenticated) {
+  } else if (!isAuthenticated && route.meta.requiresAuth == false) {
     myRouter.push({ name: "login" });
   }
   return

@@ -6,7 +6,7 @@
 
 <script setup>
 import { provide, ref, watchEffect } from "vue";
-import { AuthState } from "lumiere-utils";
+import { AuthState } from "lumiere-utils/useAuth";
 
 const props = defineProps({
     provider: {
@@ -32,7 +32,7 @@ const updateNotification = (notificationId, notification) => {
 }
 
 watchEffect(async () => {
-    if (Notifications && AuthState.user.id) {
+    if (Notifications && AuthState.user?.id) {
         fetchNotifications();
     }
 })
