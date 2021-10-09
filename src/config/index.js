@@ -10,4 +10,9 @@ export default {
     MEASUREMENT_ID: import.meta.env.VITE_MEASUREMENT_ID,
     supabaseURL: import.meta.env.VITE_SUPABASE_URL,
     supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+    // app env
+    bendingAddress: import.meta.env.VITE_BENDING_ADDRESS,
+    bendingMarketAddress: import.meta.env.VITE_BENDING_MARKET_ADDRESS,
+    rpcURL: import.meta.env.VITE_RPC_URL,
+    mode: import.meta.env.VITE_CONTRACT_MODE || 'prod',
 }

@@ -1,12 +1,7 @@
 <template>
   <main class="w-full bg-fire-map-600">
     <div class="w-full bg-transparent">
-      <AtSiteHeader
-        title="CryptoBenders"
-        :links="state.links"
-        link-class="text-white hover:text-fire-400"
-        :actions="state.actions"
-      />
+      <Header />
     </div>
     <div class="py-20 text-center pb-30 bg-fire-map text-gray-50">
         <h1 class="text-4xl"> Domain the elements and conquer </h1>
@@ -44,6 +39,7 @@
 
 <script setup>
 import { AtSiteHeader, AtPreFooter, AtSiteFooter, AtButton } from "atmosphere-ui";
+import Header from "./Header.vue";
 
 const state = {
   title: "Lumiere",
