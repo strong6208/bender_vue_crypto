@@ -11,7 +11,8 @@
             />
 
             <div class="w-full mt-5">
-              <AtButton class="w-full text-white bg-fire" @click="buyItem(bender)"> Buy </AtButton>
+              <input class="w-full px-2 py-2 mb-2 border rounded-md" placeholder="0.00 ETH" v-model="bender.sellPrice">
+              <AtButton class="w-full text-white bg-fire" @click="sellItem(bender)"> Sell </AtButton>
             </div>
 
           </div>
@@ -29,14 +30,14 @@ import { ethers } from "ethers";
 import AvatarCard from "../components/AvatarCard.vue";
 import config from "../config";
 
-const { benderMarket, benderNTF, connectWallet } = useContract();
+const { benderMarket, benderNTF, connectWallet, signer } = useContract();
 let benders = ref([]);
 const state = reactive({
   isLoading: true
 });
 
 const fetchMarketItems = async () => {
-  const marketItems = await benderMarket.value.getMarketItems();
+  const marketItems = await benderMarket.value.getMyNFTs();
   benders.value = await Promise.all(marketItems.map(async (item) => {
     const bender = await benderNTF.value.getBender(item.tokenId);
     
@@ -53,19 +54,30 @@ const fetchMarketItems = async () => {
     }
   }));
 
+  if (signer.value.address && benderNTF.value) {
+    console.log(await benderNTF.value.balanceOf(signer.value.address));
+
+  }
   state.isLoading = false;
 }
 
 watch(() => benderMarket.value, () => {
   if (benderMarket.value) {
     fetchMarketItems();
+
   }
 });
 
 
-const buyItem = async (marketItem) => {
-  connectWallet();
-  const trx = await benderMarket.value.createMarketSale(config.bendingAddress, marketItem.itemId, { value: marketItem.priceETH });
+
+const sellItem = async (marketItem) => {
+  await connectWallet();
+  if (!marketItem.sellPrice) {
+    alert("Set a price for the item");
+  }
+  const listPricing = await benderMarket.value.getListingPrice();
+  const price = ethers.utils.parseEther(marketItem.sellPrice);
+  const trx = await benderMarket.value.resellMarketItem(config.bendingAddress, marketItem.tokenId, price,  { value: listPricing });
   trx.wait();
   fetchMarketItems();
   alert("Purchase done");

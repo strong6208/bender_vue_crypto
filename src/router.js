@@ -2,6 +2,7 @@ import Landing from "./pages/Landing/index.vue";
 import Login from "./pages/Auth/Login.vue";
 import Dashboard from "./pages/Dashboard.vue";
 import MarketPlace from "./pages/MarketPlace.vue";
+import MyItems from "./pages/MyItems.vue";
 import Settings from "./pages/Settings/index.vue";
 import Notifications from "./pages/Notifications.vue";
 import { createRouter, createWebHistory } from "vue-router";
@@ -21,6 +22,14 @@ export const routes = [
     path: "/market-place",
     component: MarketPlace,
     name: "marketPlace",
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/my-items",
+    component: MyItems,
+    name: "myItems",
     meta: {
       requiresAuth: false,
     },

@@ -72,7 +72,7 @@ export const useContract = () => {
     
     const connectWallet = async () => {
         wallet.value = await web3Modal.connect();
-        onChangeAccount(wallet.value);
+        await onChangeAccount(wallet.value);
         listenProviderEvents(wallet.value)
     }
     
