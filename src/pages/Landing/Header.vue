@@ -31,7 +31,7 @@ const state = {
   links: [
     {
       name: "Fighting",
-      url: "#home",
+      url: "https://bending-battle.vercel.app/",
     },
     {
       name: "Marketplace",
@@ -39,6 +39,18 @@ const state = {
     },
     {
       name: "My Items",
+      to: {name: 'myItems'},
+    },
+    {
+      name: "About",
+      to: {name: 'myItems'},
+    },
+    {
+      name: "Help",
+      to: {name: 'myItems'},
+    },
+    {
+      name: "Code",
       to: {name: 'myItems'},
     }
   ],

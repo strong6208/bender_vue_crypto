@@ -8,9 +8,18 @@
             class="max-w-5xl py-10 mx-auto md:gap-5 grid-container" 
             :items="benders"
             v-if="!state.isLoading"
-            @item-clicked="sellItem"
+            @item-clicked="resellItem"
             mode="sell"
             operation-label="Sell"
+        />
+
+        <MarketGrid 
+            class="max-w-5xl py-10 mx-auto md:gap-5 grid-container" 
+            :items="nonTokens"
+            v-if="!state.isLoading"
+            @item-clicked="sellItem"
+            mode="sell"
+            operation-label="Set for Sale"
         />          
     </div>
     <SiteFooter />
@@ -58,26 +67,51 @@ const fetchMarketItems = async () => {
   state.isLoading = false;
 }
 
+const nonTokens = ref([]);
+const fetchMyBenders = async () => {
+  const tokens = await benderNTF.value.getMyBenders();
+  nonTokens.value = tokens.map((item) => ({
+      price: 0,
+      priceETH: 0,
+      tokenId: item.tokenId,
+      seller: 'Me',
+      owner: '',
+      name: item.name,
+      element: item.element
+  }))
+}
+
 watch(() => benderMarket.value, () => {
   if (benderMarket.value) {
     fetchMarketItems();
-
+    fetchMyBenders();
   }
 });
 
+const sellItem = async (token) => {
+  await connectWallet();
+  if (!token.sellPrice) {
+    alert("Set a price for the item");
+  }
+  const listPricing = await benderMarket.value.getListingPrice();
+  const price = ethers.utils.parseEther(token.sellPrice);
+  const trx = await benderMarket.value.createMarketItem(config.bendingAddress, token.tokenId, price,  { value: listPricing });
+  trx.wait();
+  fetchMarketItems();
+  alert("The item is on sale");
+}
 
-
-const sellItem = async (marketItem) => {
+const resellItem = async (marketItem) => {
   await connectWallet();
   if (!marketItem.sellPrice) {
     alert("Set a price for the item");
   }
   const listPricing = await benderMarket.value.getListingPrice();
   const price = ethers.utils.parseEther(marketItem.sellPrice);
-  const trx = await benderMarket.value.resellMarketItem(config.bendingAddress, marketItem.tokenId, price,  { value: listPricing });
+  const trx = await benderMarket.value.resellMarketItem(config.bendingAddress, marketItem.itemsId, price,  { value: listPricing });
   trx.wait();
   fetchMarketItems();
-  alert("Purchase done");
+  alert("The iten is on the Marketplace");
 }
 </script>
 

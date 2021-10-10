@@ -102,7 +102,7 @@ export const useContract = () => {
     
     const listenProviderEvents = (walletProvider) => {
         walletProvider.on("accountsChanged", (accounts) => {
-        onChangeAccount(walletProvider, accounts)
+            onChangeAccount(walletProvider, accounts)
         });
     
         walletProvider.on("chainChanged", (chainId) => {
