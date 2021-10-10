@@ -1,28 +1,31 @@
 <template>
-  <main class="w-full bg-gray-800">
-    <div class="w-full bg-transparent">
-      <Header />
-    </div>
-    <div class="bg-gray-700">
-        <section class="pt-5 mx-auto max-w-7xl">
-          <div class="flex justify-between text-lg text-gray-300">
-            <div> {{ benders.length }} results</div>
-            <div>
-              <select name="" id=""></select>
-              <select name="" id=""></select>
-              <div></div>
+  <main> 
+    <section class="relative w-full bg-gray-800">
+      <div class="w-full bg-transparent">
+        <Header />
+      </div>
+      <div class="bg-gray-700 content">
+          <section class="pt-5 mx-auto max-w-7xl">
+            <div class="flex justify-between text-lg text-gray-300">
+              <div> {{ benders.length }} results</div>
+              <div>
+                <select name="" id=""></select>
+                <select name="" id=""></select>
+                <div></div>
+              </div>
             </div>
-          </div>
+            
+            <MarketGrid 
+              class="w-full py-10 md:gap-5 grid-container" 
+              :items="benders"
+              v-if="!state.isLoading"
+              @item-clicked="buyItem"
+            />  
           
-          <MarketGrid 
-            class="w-full py-10 md:gap-5 grid-container" 
-            :items="benders"
-            v-if="!state.isLoading"
-            @item-clicked="buyItem"
-          />  
-        
-        </section>
-    </div>
+          </section>
+      </div>
+    </section>
+    <SiteFooter class="relative" />
   </main>
 </template>
 
@@ -33,6 +36,7 @@ import { watch, ref, reactive, nextTick } from "@vue/runtime-core";
 import { ethers } from "ethers";
 import config from "../config";
 import MarketGrid from "../components/MarketGrid.vue";
+import SiteFooter from "./Landing/SiteFooter.vue";
 
 const { benderMarket, benderNTF, connectWallet } = useContract();
 let benders = ref([]);
@@ -79,3 +83,9 @@ const buyItem = async (marketItem) => {
   })
 }
 </script>
+
+<style lang="scss">
+.content {
+  min-height: 80vh;
+}
+</style>

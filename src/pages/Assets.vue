@@ -23,7 +23,6 @@ import { useContract } from "../utils/useContract";
 import { watch, ref, reactive } from "@vue/runtime-core";
 import { ethers } from "ethers";
 import config from "../config";
-import { AtButton } from "atmosphere-ui";
 import MarketGrid from "../components/MarketGrid.vue";
 import SiteFooter from "./Landing/SiteFooter.vue";
 
@@ -107,6 +106,6 @@ const sellItem = async (marketItem) => {
 }
 
 html {
-  @apply bg-gray-500;
+  @apply bg-gray-700;
 }
 </style>

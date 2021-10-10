@@ -1,9 +1,9 @@
 <template>
-  <main class="w-full bg-fire-map-600">
+  <main class="w-full bg-gray-800">
     <div class="w-full bg-transparent">
       <Header />
     </div>
-    <div class="py-20 text-center pb-30 bg-fire-map text-gray-50">
+    <div class="py-20 text-center pb-30 bg-cool-gray-700 text-gray-50">
         <h1 class="text-4xl"> Domain the elements and conquer </h1>
         <div>
             <p class="pt-5 text-xl">
@@ -11,7 +11,7 @@
             </p>
 
             <div class="mt-5 space-x-3">
-                <AtButton class="px-10 font-bold text-white bg-fire">Start</AtButton>
+                <AtButton class="px-10 font-bold text-white bg-roti">Start</AtButton>
             </div>
         </div>
     </div>

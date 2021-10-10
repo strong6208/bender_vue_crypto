@@ -2,6 +2,7 @@ import Web3Modal from "web3modal/dist";
 import { ethers } from "ethers";
 import config from "../config";
 import { ref, reactive, computed, onMounted, watch } from "vue";
+import AppState from "./AppState";
 
 const web3Modal = new Web3Modal({
     cacheProvider: true,
@@ -19,7 +20,7 @@ export const useContract = () => {
         mode: "dashboard",
         modes: ['dashboard', 'battle', 'market'],
         formattedBalance: computed(() => 
-        Number(ethers.utils.formatEther(state.balance)).toFixed(4)
+            formatBalance(state.balance)
         ),
         currency: 'ETH',
     })
@@ -27,9 +28,17 @@ export const useContract = () => {
     watch(() => state.selectedAccount, (account) => {
         getBalance(account)
     })
+
+    const formatBalance = () => {
+        return  Number(ethers.utils.formatEther(state.balance)).toFixed(4);
+    }
   
     const getBalance = async (address) => {
         state.balance = await provider.value.getBalance(address);
+        AppState.provider = {
+            ...AppState.provider,
+            balance: formatBalance(state.balance)
+        }
     }
     
     const getAccounts = async () => {
@@ -62,6 +71,10 @@ export const useContract = () => {
             await getAccounts();
         }
     }
+
+    watch(() => signer.value, () => {
+        AppState.user = signer.value;
+    })
     
     const onChangeAccount = async (wallet) => {
         provider.value = new ethers.providers.Web3Provider(wallet, "any");
@@ -118,6 +131,11 @@ export const useContract = () => {
           connectWallet();
         }
     })
+
+    AppState.provider = {
+        login: connectWallet,
+        logout: disconnectWallet
+    }
 
     return {
         connectWallet,
