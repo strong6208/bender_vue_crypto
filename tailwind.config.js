@@ -25,6 +25,7 @@ module.exports = {
         },
         amber: colors.amber,
         'warm-gray': colors.warmGray,
+        'cool-gray': colors.coolGray,
         orange: colors.orange,
         'fire': {
           DEFAULT: '#5E0600',

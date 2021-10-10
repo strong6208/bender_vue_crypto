@@ -25,98 +25,16 @@
           </div>
       </div>
     </div>
-    <div class="relative text-gray-100 bg-warm-gray-800">
-        <AtPreFooter :sections="state.sections" class="bg-warm-gray-800" />
-        <AtSiteFooter
-            title="Lumiere"
-            year="2021"
-            subtitle="Lumiere - The firebase template"
-            :links="state.footerLinks"
-        />
-    </div>
+    <SiteFooter />
   </main>
 </template>
 
 <script setup>
-import { AtSiteHeader, AtPreFooter, AtSiteFooter, AtButton } from "atmosphere-ui";
+import { AtButton } from "atmosphere-ui";
 import Header from "./Header.vue";
+import SiteFooter from "./SiteFooter.vue";
 
 const state = {
-  title: "Lumiere",
-  links: [
-    {
-      name: "Fighting",
-      url: "#home",
-    },
-    {
-      name: "MarketPlace",
-      url: "/market-place",
-    },
-    {
-        name: "Learn",
-        url: "#features",
-    }
-  ],
-  sections: {
-    general: {
-      label: "General Resources",
-      links: {
-        Docs: "",
-        Blog: "",
-        "Use Cases": "",
-      },
-    },
-    more: {
-      label: "More",
-      links: {
-        Zenboard: "",
-        Atmosphere: "",
-        Lumiere: "",
-        "Insane Code": "",
-      },
-    },
-    about: {
-      label: "About Neatlancer",
-      links: {
-        "Open Source Software": "",
-        Github: "",
-        Twitter: "",
-      },
-    },
-    legal: {
-      label: "Legal",
-      links: {
-        "Privacy Policy": "/privacy-policy",
-        "Terms of service": "/terms",
-      },
-    },
-  },
-  actions: [
-    {
-      name: "Want to play crypto benders?",
-      url: "/login",
-      class: 'text-gray-300 bg-transparent hover:bg-transparent transition'
-    },
-    {
-      name: "Start",
-      url: "/register",
-      class: 'bg-fire px-10 py-2 text-white hover:bg-fire-400 transition'
-    },
-  ],
-  footerLinks: [
-    {
-      name: "facebook",
-    },
-    {
-      name: "twitter",
-    },
-    {
-      name: "github",
-    },
-    {
-      name: "github",
-    },
-  ],
   features: {
       row1: [
           {

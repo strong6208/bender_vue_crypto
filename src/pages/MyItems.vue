@@ -1,34 +1,30 @@
 <template>
-  <main class="w-full bg-fire-map-600">
+  <main class="w-full bg-gray-800">
     <div class="w-full bg-transparent">
       <Header />
     </div>
-    <div class="bg-roti">
-        <div class="grid grid-cols-4 py-10" v-if="!state.isLoading">
-          <div v-for="bender in benders" class="flex flex-col items-center justify-center px-5 py-3 mx-10 bg-white rounded-lg">
-            <AvatarCard 
-              :bender="bender"
-            />
-
-            <div class="w-full mt-5">
-              <input class="w-full px-2 py-2 mb-2 border rounded-md" placeholder="0.00 ETH" v-model="bender.sellPrice">
-              <AtButton class="w-full text-white bg-fire" @click="sellItem(bender)"> Sell </AtButton>
-            </div>
-
-          </div>
-        </div>
+    <div class="bg-gray-700 content">
+        <MarketGrid 
+            class="max-w-5xl py-10 mx-auto md:gap-5 grid-container" 
+            :items="benders"
+            v-if="!state.isLoading"
+            @item-clicked="sellItem"
+            mode="sell"
+            operation-label="Sell"
+        />          
     </div>
+    <SiteFooter />
   </main>
 </template>
 
 <script setup>
 import Header from "./Landing/Header.vue";
 import { useContract } from "../utils/useContract";
-import { AtButton } from "atmosphere-ui";
 import { watch, ref, reactive } from "@vue/runtime-core";
 import { ethers } from "ethers";
-import AvatarCard from "../components/AvatarCard.vue";
 import config from "../config";
+import MarketGrid from "../components/MarketGrid.vue";
+import SiteFooter from "./Landing/SiteFooter.vue";
 
 const { benderMarket, benderNTF, connectWallet, signer } = useContract();
 let benders = ref([]);
@@ -83,3 +79,33 @@ const sellItem = async (marketItem) => {
   alert("Purchase done");
 }
 </script>
+
+<style lang="scss">
+.grid-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-item {
+  max-width: 250px;
+}
+
+.content {
+  min-height: 80vh;
+}
+
+@screen md {
+  .grid-container {
+    display: grid;
+    grid-template-columns:  repeat(4, minmax(250px, 250px));
+  }
+
+  .grid-item {
+    max-width: 250px;
+  }
+}
+
+html {
+  @apply bg-gray-700;
+}
+</style>

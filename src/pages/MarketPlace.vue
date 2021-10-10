@@ -1,21 +1,27 @@
 <template>
-  <main class="w-full bg-fire-map-600">
+  <main class="w-full bg-gray-800">
     <div class="w-full bg-transparent">
       <Header />
     </div>
-    <div class="bg-roti">
-        <div class="grid grid-cols-4 py-10" v-if="!state.isLoading">
-          <div v-for="bender in benders" class="flex flex-col items-center justify-center px-5 py-3 mx-10 bg-white rounded-lg">
-            <AvatarCard 
-              :bender="bender"
-            />
-
-            <div class="w-full mt-5">
-              <AtButton class="w-full text-white bg-fire" @click="buyItem(bender)"> Buy </AtButton>
+    <div class="bg-gray-700">
+        <section class="pt-5 mx-auto max-w-7xl">
+          <div class="flex justify-between text-lg text-gray-300">
+            <div> {{ benders.length }} results</div>
+            <div>
+              <select name="" id=""></select>
+              <select name="" id=""></select>
+              <div></div>
             </div>
-
           </div>
-        </div>
+          
+          <MarketGrid 
+            class="w-full py-10 md:gap-5 grid-container" 
+            :items="benders"
+            v-if="!state.isLoading"
+            @item-clicked="buyItem"
+          />  
+        
+        </section>
     </div>
   </main>
 </template>
@@ -23,11 +29,10 @@
 <script setup>
 import Header from "./Landing/Header.vue";
 import { useContract } from "../utils/useContract";
-import { AtButton } from "atmosphere-ui";
-import { watch, ref, reactive } from "@vue/runtime-core";
+import { watch, ref, reactive, nextTick } from "@vue/runtime-core";
 import { ethers } from "ethers";
-import AvatarCard from "../components/AvatarCard.vue";
 import config from "../config";
+import MarketGrid from "../components/MarketGrid.vue";
 
 const { benderMarket, benderNTF, connectWallet } = useContract();
 let benders = ref([]);
@@ -37,13 +42,14 @@ const state = reactive({
 
 const fetchMarketItems = async () => {
   const marketItems = await benderMarket.value.getMarketItems();
+  console.log(marketItems);
   benders.value = await Promise.all(marketItems.map(async (item) => {
-    const bender = await benderNTF.value.getBender(item.tokenId);
+    const bender = await benderNTF.value.getBender(item.tokenId.toNumber());
     
     return {
       itemId: item.itemId,
-      name: 'Item',
       price: ethers.utils.formatEther(item.price),
+      lastPrice: ethers.utils.formatEther(item.lastPrice),
       priceETH: item.price,
       tokenId: item.tokenId,
       seller: item.seller,
@@ -58,8 +64,8 @@ const fetchMarketItems = async () => {
 
 watch(() => benderMarket.value, () => {
   if (benderMarket.value) {
-    fetchMarketItems();
-  }
+      fetchMarketItems();
+    }
 });
 
 
@@ -67,7 +73,9 @@ const buyItem = async (marketItem) => {
   connectWallet();
   const trx = await benderMarket.value.createMarketSale(config.bendingAddress, marketItem.itemId, { value: marketItem.priceETH });
   trx.wait();
-  fetchMarketItems();
-  alert("Purchase done");
+  nextTick(() => {
+    fetchMarketItems();
+    alert("Purchase done");
+  })
 }
 </script>

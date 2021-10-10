@@ -2,7 +2,7 @@
  <AtSiteHeader
     title="CryptoBenders"
     :links="state.links"
-    link-class="text-white hover:text-fire-400"
+    link-class="font-normal text-white transition hover:text-fire-map-300 hover:font-bold"
     :actions="state.actions"
 />
 </template>
@@ -18,12 +18,12 @@ const state = {
       url: "#home",
     },
     {
-      name: "MarketPlace",
+      name: "Marketplace",
       url: "/market-place",
     },
     {
-        name: "Learn",
-        url: "#features",
+      name: "My Items",
+      url: "/my-items",
     }
   ],
   actions: [
@@ -35,7 +35,7 @@ const state = {
     {
       name: "Start",
       url: "/register",
-      class: 'bg-fire px-10 py-2 text-white hover:bg-fire-400 transition'
+      class: 'bg-fire-400 px-10 py-2 text-white hover:bg-fire-300 transition'
     },
   ],
 };
