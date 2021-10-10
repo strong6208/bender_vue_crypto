@@ -11,7 +11,7 @@
                     <span class="font-bold">{{ item.price }} {{ currency }}</span>
                 </div>
                 <input class="w-full px-2 py-2 border rounded-md" placeholder="0.00 ETH" v-model="item.sellPrice" v-if="mode=='sell'">
-                <AtButton class="w-full mt-2 text-white bg-fire" @click="$emit('item-clicked', item)"> {{ operationLabel }} </AtButton>
+                <AtButton class="w-full mt-2 font-bold text-white bg-roti" @click="$emit('item-clicked', item)"> {{ operationLabel }} </AtButton>
             </div>
         </div>
     </div>
