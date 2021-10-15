@@ -1,8 +1,8 @@
 <template>
-  <div class="py-10 text-center text-white bg-green-400">
+  <div class="py-10 text-center text-white bg-roti">
       <h2 class="text-2xl font-bold"> Bending Battle </h2>
       <h2 class="text-lg font-bold text-roti-200"> The official CryptoBenders game </h2>
-      <AtButton class="mt-5 font-bold bg-roti hover:roti-600"> Go to Bending Battle </AtButton>
+      <AtButton class="mt-5 font-bold bg-white text-cool-gray-700 hover:text-roti-600"> Go to Bending Battle </AtButton>
   </div>
   <div class="relative text-gray-100">
       <AtPreFooter :sections="state.sections" class="bg-gray-800" />
@@ -33,10 +33,10 @@ const state = {
     more: {
       label: "More",
       links: {
-        Zenboard: "",
-        Atmosphere: "",
-        Lumiere: "",
-        "Insane Code": "",
+        Zenboard: "https://zenboard.app/",
+        Atmosphere: "https://atmosphere-ui.netlify.app/",
+        Lumiere: "https://github.com/jesusantguerrero/lumiere",
+        Code: "https://github.com/jesusantguerrero/crypto-bender"
       },
     },
     about: {
@@ -46,14 +46,7 @@ const state = {
         Github: "",
         Twitter: "",
       },
-    },
-    legal: {
-      label: "Legal",
-      links: {
-        "Privacy Policy": "/privacy-policy",
-        "Terms of service": "/terms",
-      },
-    },
+    }
   },
   footerLinks: [
     {
@@ -75,6 +68,6 @@ const state = {
 <style>
 .custom-shape-divider-top-1629465412 .shape-fill {
   /* fill: rgb(94, 6, 0) !important; */
-  fill: rgb(52, 211, 153) !important;
+  fill: rgb(205, 171, 78) !important;
 }
 </style>

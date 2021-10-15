@@ -1,7 +1,7 @@
 <template>
  <AtSiteHeader
     title="CryptoBenders"
-    :links="state.links"
+    :links="state.visibleLinks.value"
     link-class="font-bold text-white transition hover:text-roti hover:font-bold"
     :actions="state.actions"
     dot-class="text-roti"
@@ -23,6 +23,7 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { AtSiteHeader } from "atmosphere-ui";
 import AppState from "../../utils/AppState";
 
@@ -40,20 +41,14 @@ const state = {
     {
       name: "My Items",
       to: {name: 'myItems'},
+      authenticated: true
     },
-    {
-      name: "About",
-      to: {name: 'myItems'},
-    },
-    {
-      name: "Help",
-      to: {name: 'myItems'},
-    },
-    {
-      name: "Code",
-      to: {name: 'myItems'},
-    }
   ],
+  visibleLinks: computed(() => {
+    return state.links.filter((link) => {
+      return !link.authenticated || (link.authenticated && AppState.user)
+    })
+  }),
   actions: [
     {
       name: "Want to play crypto benders?",
@@ -63,7 +58,8 @@ const state = {
     {
       name: "Start",
       url: "/register",
-      class: 'bg-roti px-10 py-2 text-white hover:bg-roti-600 transition'
+      class: 'bg-roti px-10 py-2 text-white hover:bg-roti-600 transition',
+      emit: true
     },
   ],
 };
