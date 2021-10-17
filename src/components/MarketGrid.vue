@@ -1,25 +1,18 @@
 <template>
     <div class="py-10 md:gap-5 grid-container">
-        <div v-for="item in items" class="flex flex-col items-center justify-center px-5 py-3 bg-gray-800 border border-gray-600 rounded-lg grid-item">
-            <AvatarCard
-                :bender="item"
-            />
-
-            <div class="w-full mt-5">
-                <div class="flex justify-between text-gray-300">
-                    <span class="font-semibold">Price:</span>
-                    <span class="font-bold">{{ item.price }} {{ currency }}</span>
-                </div>
-                <input class="w-full px-2 py-2 border rounded-md" placeholder="0.00 ETH" v-model="item.sellPrice" v-if="mode=='sell'">
-                <AtButton class="w-full mt-2 font-bold text-white bg-roti" @click="$emit('item-clicked', item)"> {{ operationLabel }} </AtButton>
-            </div>
-        </div>
+        <MarketGridItem 
+            v-for="item in items" 
+            :item="item"
+            :operation-label="operationLabel"
+            :currency="currency"
+            :mode="mode"
+            @item-clicked="$emit('item-clicked', item)"
+        />
     </div>
 </template>
 
 <script setup>
-import AvatarCard from './AvatarCard.vue';
-import { AtButton } from "atmosphere-ui";
+import MarketGridItem from './MarketGridItem.vue';
 
 defineProps({
     items: {
