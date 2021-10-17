@@ -14,7 +14,7 @@
 
 <script setup>
 import Header from "./Landing/Header.vue";
-import Marketplace from "../components/templates/MarketPlace.vue";
+import Marketplace from "../components/templates/Marketplace.vue";
 import SiteFooter from "./Landing/SiteFooter.vue";
 </script>
 
