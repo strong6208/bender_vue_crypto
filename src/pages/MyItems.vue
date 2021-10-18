@@ -16,7 +16,7 @@
           />
         </section>
 
-        <section class="py-10 mx-auto max-w-7xl">
+        <!-- <section class="py-10 mx-auto max-w-7xl">
           <h2 class="text-xl font-bold text-left text-gray-300"> Created tokens</h2>
           <MarketGrid 
               class=" md:gap-5 grid-container" 
@@ -26,7 +26,7 @@
               mode="sell"
               operation-label="Set for Sale"
           />          
-        </section>
+        </section> -->
     </article>
     <SiteFooter />
   </main>
